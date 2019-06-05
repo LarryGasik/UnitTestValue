@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ParkingTicketLogic.Test.DTO
+namespace ParkingTicket.DataAccess.DTO
 {
     public class ParkingTicketDto
     {

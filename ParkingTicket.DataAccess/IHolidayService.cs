@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicket.DataAccess
 {
-    public class Class1
+    public interface IHolidayService
     {
+        List<HolidayDTO> GetHolidays();
     }
 }

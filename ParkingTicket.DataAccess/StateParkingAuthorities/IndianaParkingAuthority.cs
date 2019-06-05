@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkingTicketLogic.Test.DTO;
+﻿using System.Collections.Generic;
+using ParkingTicket.DataAccess.DTO;
 
-namespace ParkingTicketLogic.Test.StateParkingAuthorities
+namespace ParkingTicket.DataAccess.StateParkingAuthorities
 {
     public class IndianaParingAuthority:IStateParkingAuthority
     {

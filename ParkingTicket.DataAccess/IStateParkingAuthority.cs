@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ParkingTicketLogic.Test.DTO;
+using ParkingTicket.DataAccess.DTO;
 
-namespace ParkingTicketLogic.Test
+namespace ParkingTicket.DataAccess
 {
     public interface IStateParkingAuthority
     {
