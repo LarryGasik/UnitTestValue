@@ -45,6 +45,7 @@
     <Compile Include="ParkingOffense.cs" />
     <Compile Include="ParkingTicketCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\SystemTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParkingTicket.DataAccess\ParkingTicket.DataAccess.csproj">
