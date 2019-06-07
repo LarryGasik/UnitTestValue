@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\ScanInformation.cs" />
+    <Compile Include="Generators\ITicketGenerator.cs" />
+    <Compile Include="Generators\TicketGenerator.cs" />
     <Compile Include="ParkingOffense.cs" />
     <Compile Include="ParkingTicketCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
