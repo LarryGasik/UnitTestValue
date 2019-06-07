@@ -8,11 +8,23 @@ using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
 using ParkingTicketLogic.DTO;
+using ParkingTicketLogic.Providers;
 
 namespace ParkingTicketLogic
 {
     public class ParkingTicketCalculator
     {
+        private IHolidayService _holidayService;
+        public ParkingTicketCalculator() : this(new HolidaySerivice())
+        {
+
+        }
+
+        public ParkingTicketCalculator(IHolidayService holidayService)
+        {
+            _holidayService = holidayService;
+        }
+
         /// <summary>
         /// Simulates a submission for an offense, and will spit out some sort of string that can be printed out,
         /// and tell the parking attendant if the car should get a ticket, be towed, etc.
@@ -24,11 +36,10 @@ namespace ParkingTicketLogic
             List<ParkingTicketDto>ParkingTickets = new List<ParkingTicketDto>();
             
             //Is this a valid parking offense?
-            IHolidayService holidayService= new HolidaySerivice();
             IMyStateParkingAuthority myState= new MyStateParkingAuthority();
             //Is It a holiday?
-            var holidays = holidayService.GetHolidays();
-            bool IsHoliday = holidays.Any(x => x.Date.Month == DateTime.Now.Month && x.Date.Day == DateTime.Now.Day);
+            var holidays = _holidayService.GetHolidays();
+            bool IsHoliday = holidays.Any(x => x.Date.Month == SystemTime.Now().Month && x.Date.Day == SystemTime.Now().Day);
 
 
             bool IsParkingOffense = true;
