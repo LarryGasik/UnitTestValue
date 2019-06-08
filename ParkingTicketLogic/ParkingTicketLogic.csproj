@@ -48,6 +48,12 @@
     <Compile Include="ParkingTicketCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SystemTime.cs" />
+    <Compile Include="TowDeterminer\ITowDeterminerService.cs" />
+    <Compile Include="TowDeterminer\TowDeterminerService.cs" />
+    <Compile Include="TowDeterminer\TowRules\ITowRule.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfInHandicappedSpot.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfTotalFinesEquateMoreThanMaximumAmount.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfVehicleHasThreeOrMoreTickets.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParkingTicket.DataAccess\ParkingTicket.DataAccess.csproj">

@@ -10,6 +10,7 @@ using ParkingTicket.DataAccess.StateParkingAuthorities;
 using ParkingTicketLogic.DTO;
 using ParkingTicketLogic.Generators;
 using ParkingTicketLogic.Providers;
+using ParkingTicketLogic.TowDeterminer;
 
 namespace ParkingTicketLogic
 {
@@ -17,15 +18,18 @@ namespace ParkingTicketLogic
     {
         private IHolidayService _holidayService;
         private ITicketGenerator _ticketGenerator;
-        public ParkingTicketCalculator() : this(new HolidaySerivice(), new TicketGenerator())
+        private ITowDeterminerService _towDeterminerService;
+        public ParkingTicketCalculator() : this(new HolidaySerivice(), new TicketGenerator(), new TowDeterminerService())
         {
 
         }
 
-        public ParkingTicketCalculator(IHolidayService holidayService, ITicketGenerator ticketGenerator)
+        public ParkingTicketCalculator(IHolidayService holidayService, ITicketGenerator ticketGenerator, 
+            ITowDeterminerService towDeterminerService)
         {
             _holidayService = holidayService;
             _ticketGenerator = ticketGenerator;
+            _towDeterminerService = towDeterminerService;
         }
 
         /// <summary>
@@ -40,16 +44,17 @@ namespace ParkingTicketLogic
             
             //Is this a valid parking offense?
             IMyStateParkingAuthority myState= new MyStateParkingAuthority();
+            
             //Is It a holiday?
             var holidays = _holidayService.GetHolidays();
-            bool IsHoliday = holidays.Any(x => x.Date.Month == SystemTime.Now().Month && x.Date.Day == SystemTime.Now().Day);
+            bool isHoliday = holidays.Any(x => x.Date.Month == SystemTime.Now().Month && x.Date.Day == SystemTime.Now().Day);
 
 
-            bool isParkingOffense = true;
-            if (IsHoliday && scan.Offense == ParkingOffense.ExpiredParkingMeter)
+            bool isTicketableOffense = true;
+            if (isHoliday && scan.Offense == ParkingOffense.ExpiredParkingMeter)
             {
                 //It is a holiday, we don't charge meters on holiday!
-                isParkingOffense = false;
+                isTicketableOffense = false;
             }
 
             //We don't want to give a ticket to the same tag, on the same day, for the same thing
@@ -57,21 +62,19 @@ namespace ParkingTicketLogic
             List<ParkingTicketDto> myStateParkingTickets = MY.GetTicketsFromTag(scan.Tag);
             if (myStateParkingTickets.Any(x=>x.Offense==scan.Offense.ToString() && x.DateOfOffense==DateTime.Now))
             {
-                isParkingOffense = false;
+                isTicketableOffense = false;
             }
 
             //We Determined they need a parking ticket.
-            if (isParkingOffense)
+            if (isTicketableOffense)
             {
                 ParkingTickets.Add(myState.IssueParkingTicketDto(scan.Offense.ToString(),30));
             }
-
 
             ParkingTickets.Add(myState.IssueParkingTicketDto(scan.Offense.ToString(), 30));
 
             //Does this car need to be towed?
             //We tow cars when they have 3 or more tickets, or owe $300 to the collective parking authorities.
-            bool towCar = false;
             IStateParkingAuthority IL = new IllinoisParkingAuthority();
             IStateParkingAuthority IN = new IndianaParingAuthority();
             IStateParkingAuthority PA = new PennsylvaniaParkingAuthority();
@@ -82,17 +85,10 @@ namespace ParkingTicketLogic
             ParkingTickets.AddRange(IN.GetTicketsFromTag(scan.Tag));
             ParkingTickets.AddRange(PA.GetTicketsFromTag(scan.Tag));
 
-            if (ParkingTickets.Count >= 3)
-            {
-                towCar = true;
-            }
-
-            if (ParkingTickets.Sum(x => x.Fine) >300)
-            {
-                towCar = true;
-            }
-
-            string result = _ticketGenerator.InstructionGenerator(towCar, isParkingOffense);
+            bool towCar = false;
+            towCar = _towDeterminerService.ShouldTowCar(ParkingTickets, scan.Offense);
+           
+            string result = _ticketGenerator.InstructionGenerator(towCar, isTicketableOffense);
             
             return result;
             
