@@ -1,6 +1,6 @@
 ﻿namespace ParkingTicketLogic.Generators
 {
-    interface ITicketGenerator
+    public interface ITicketGenerator
     {
         string InstructionGenerator(bool TowCar, bool IssueTicket);
     }

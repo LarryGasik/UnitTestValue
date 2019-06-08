@@ -8,6 +8,7 @@ using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
 using ParkingTicketLogic.DTO;
+using ParkingTicketLogic.Generators;
 using ParkingTicketLogic.Providers;
 
 namespace ParkingTicketLogic
@@ -15,14 +16,16 @@ namespace ParkingTicketLogic
     public class ParkingTicketCalculator
     {
         private IHolidayService _holidayService;
-        public ParkingTicketCalculator() : this(new HolidaySerivice())
+        private ITicketGenerator _ticketGenerator;
+        public ParkingTicketCalculator() : this(new HolidaySerivice(), new TicketGenerator())
         {
 
         }
 
-        public ParkingTicketCalculator(IHolidayService holidayService)
+        public ParkingTicketCalculator(IHolidayService holidayService, ITicketGenerator ticketGenerator)
         {
             _holidayService = holidayService;
+            _ticketGenerator = ticketGenerator;
         }
 
         /// <summary>
@@ -42,11 +45,11 @@ namespace ParkingTicketLogic
             bool IsHoliday = holidays.Any(x => x.Date.Month == SystemTime.Now().Month && x.Date.Day == SystemTime.Now().Day);
 
 
-            bool IsParkingOffense = true;
+            bool isParkingOffense = true;
             if (IsHoliday && scan.Offense == ParkingOffense.ExpiredParkingMeter)
             {
                 //It is a holiday, we don't charge meters on holiday!
-                IsParkingOffense = false;
+                isParkingOffense = false;
             }
 
             //We don't want to give a ticket to the same tag, on the same day, for the same thing
@@ -54,11 +57,11 @@ namespace ParkingTicketLogic
             List<ParkingTicketDto> myStateParkingTickets = MY.GetTicketsFromTag(scan.Tag);
             if (myStateParkingTickets.Any(x=>x.Offense==scan.Offense.ToString() && x.DateOfOffense==DateTime.Now))
             {
-                IsParkingOffense = false;
+                isParkingOffense = false;
             }
 
             //We Determined they need a parking ticket.
-            if (IsParkingOffense)
+            if (isParkingOffense)
             {
                 ParkingTickets.Add(myState.IssueParkingTicketDto(scan.Offense.ToString(),30));
             }
@@ -68,7 +71,7 @@ namespace ParkingTicketLogic
 
             //Does this car need to be towed?
             //We tow cars when they have 3 or more tickets, or owe $300 to the collective parking authorities.
-            bool TowCar = false;
+            bool towCar = false;
             IStateParkingAuthority IL = new IllinoisParkingAuthority();
             IStateParkingAuthority IN = new IndianaParingAuthority();
             IStateParkingAuthority PA = new PennsylvaniaParkingAuthority();
@@ -81,25 +84,17 @@ namespace ParkingTicketLogic
 
             if (ParkingTickets.Count >= 3)
             {
-                TowCar = true;
+                towCar = true;
             }
 
             if (ParkingTickets.Sum(x => x.Fine) >300)
             {
-                TowCar = true;
+                towCar = true;
             }
 
-            if (TowCar)
-            {
-                return "Tow";
-            }
-
-            if (IsParkingOffense)
-            {
-                return "here's your ticket";
-            }
-
-            return String.Empty;
+            string result = _ticketGenerator.InstructionGenerator(towCar, isParkingOffense);
+            
+            return result;
             
         }
     }
