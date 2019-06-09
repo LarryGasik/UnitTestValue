@@ -74,19 +74,11 @@ namespace ParkingTicketLogic
             ParkingTickets.Add(myState.IssueParkingTicketDto(scan.Offense.ToString(), 30));
 
             //Does this car need to be towed?
-            //We tow cars when they have 3 or more tickets, or owe $300 to the collective parking authorities.
-            IStateParkingAuthority IL = new IllinoisParkingAuthority();
-            IStateParkingAuthority IN = new IndianaParingAuthority();
-            IStateParkingAuthority PA = new PennsylvaniaParkingAuthority();
-
-            //Imagine if we did every state, and each called a web service.
             ParkingTickets.AddRange(MY.GetTicketsFromTag(scan.Tag));
-            ParkingTickets.AddRange(IL.GetTicketsFromTag(scan.Tag));
-            ParkingTickets.AddRange(IN.GetTicketsFromTag(scan.Tag));
-            ParkingTickets.AddRange(PA.GetTicketsFromTag(scan.Tag));
+ 
 
             bool towCar = false;
-            towCar = _towDeterminerService.ShouldTowCar(ParkingTickets, scan.Offense);
+            towCar = _towDeterminerService.ShouldTowCar(scan.Offense, scan.Tag);
            
             string result = _ticketGenerator.InstructionGenerator(towCar, isTicketableOffense);
             
