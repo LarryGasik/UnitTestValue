@@ -7,20 +7,19 @@ namespace ParkingTicketLogic
 {
     public class ParkingTicketCalculator
     {
-        private IHolidayService _holidayService;
         private ITicketGenerator _ticketGenerator;
         private ITowDeterminerService _towDeterminerService;
-        private ITicketIssuer _TicketDeterminer;
+        private ITicketIssuer _ticketIssuer;
         public ParkingTicketCalculator() : this(new TicketIssuer(), new TicketGenerator(), new TowDeterminerService())
         {
         }
 
-        public ParkingTicketCalculator(ITicketIssuer ticketDeterminer, ITicketGenerator ticketGenerator, 
+        public ParkingTicketCalculator(ITicketIssuer ticketIssuer, ITicketGenerator ticketGenerator, 
             ITowDeterminerService towDeterminerService)
         {
             _ticketGenerator = ticketGenerator;
             _towDeterminerService = towDeterminerService;
-            _TicketDeterminer = ticketDeterminer;
+            _ticketIssuer = ticketIssuer;
         }
 
         /// <summary>
@@ -31,9 +30,9 @@ namespace ParkingTicketLogic
         /// <returns>String indicating what should be done to the car</returns>
         public string ScanForOffense(ScanInformation scan)
         {
-            bool issueTicket = _TicketDeterminer.DetermineTicket(scan.Offense, scan.Tag);
+            bool issuedTicket = _ticketIssuer.DetermineTicket(scan.Offense, scan.Tag);
             bool towCar = _towDeterminerService.ShouldTowCar(scan.Offense, scan.Tag);
-            string result = _ticketGenerator.InstructionGenerator(towCar, issueTicket);
+            string result = _ticketGenerator.InstructionGenerator(towCar, issuedTicket);
             return result;
             
         }
