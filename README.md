@@ -11,6 +11,7 @@ A friend reached out to me saying that he needed to write AUT for his coding ass
 -	How do you simulate exceptions?
 -	How do you test interacting with the System namespace?
 -	When do you test?
+- What if you're maintaining code that you didn't write?
 
 I got some rather lame answers, “It doesn’t make sense to test for a service being down, what are the chances it is going to be down?” or “Why test exceptions? I’d just write code to test for it so it doesn’t get thrown.” If you’ve ever worked in corporate environment, you know permissions get taken away for seemingly no reason or warning. It was clear that an example was needed. 
 
