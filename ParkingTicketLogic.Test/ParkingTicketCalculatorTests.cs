@@ -25,56 +25,56 @@ namespace ParkingTicketLogic.Test
            _ticketGenerator = new Mock<ITicketGenerator>();
            _towDeterminerService=new Mock<ITowDeterminerService>();
         }
+        //[Test]
+        //public void ExpiredMetersOnHolidayShouldNotIssueTicket()
+        //{
+        //    SystemTime.SetDateTime(new DateTime(2019, 05, 22));
+        //    _holidayService.Setup(x => x.GetHolidays())
+        //        .Returns(
+        //            new List<HolidayDTO>
+        //            {
+        //                new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
+        //            });
 
-        [Test]
-        public void ExpiredMetersOnHolidayShouldNotIssueTicket()
-        {
-            SystemTime.SetDateTime(new DateTime(2019,05,22));
-            _holidayService.Setup(x => x.GetHolidays())
-                .Returns(
-                    new List<HolidayDTO>
-                    {
-                        new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
-                    });
+        //    _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object, _towDeterminerService.Object);
 
-            _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object,_towDeterminerService.Object);
+        //    _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Tag" });
+        //    _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), false));
+        //}
 
-            _sut.ScanForOffense(new ScanInformation {Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Tag"});
-            _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), false));
-        }
+        //[Test]
+        //public void ExpiredMeterNotOnHolidayShouldIssueTicket()
+        //{
+        //    SystemTime.SetDateTime(new DateTime(2019, 05, 24));
+        //    _holidayService.Setup(x => x.GetHolidays())
+        //        .Returns(
+        //            new List<HolidayDTO>
+        //            {
+        //                new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
+        //            });
 
-        [Test]
-        public void ExpiredMeterNotOnHolidayShouldIssueTicket()
-        {
-            SystemTime.SetDateTime(new DateTime(2019, 05, 24));
-            _holidayService.Setup(x => x.GetHolidays())
-                .Returns(
-                    new List<HolidayDTO>
-                    {
-                        new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
-                    });
+        //    _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object, _towDeterminerService.Object);
 
-            _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object, _towDeterminerService.Object);
+        //    _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Tag" });
+        //    _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), true));
+        //}
 
-            _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Tag" });
-            _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), true));
-        }
+        //[Test]
+        //public void HandicappedOnHolidayShouldIssueTicket()
+        //{
+        //    SystemTime.SetDateTime(new DateTime(2019, 05, 22));
+        //    _holidayService.Setup(x => x.GetHolidays())
+        //        .Returns(
+        //            new List<HolidayDTO>
+        //            {
+        //                new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
+        //            });
 
-        [Test]
-        public void HandicappedOnHolidayShouldIssueTicket()
-        {
-            SystemTime.SetDateTime(new DateTime(2019, 05, 22));
-            _holidayService.Setup(x => x.GetHolidays())
-                .Returns(
-                    new List<HolidayDTO>
-                    {
-                        new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
-                    });
+        //    _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object, _towDeterminerService.Object);
 
-            _sut = new ParkingTicketCalculator(_holidayService.Object, _ticketGenerator.Object, _towDeterminerService.Object);
+        //    _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.HandicappedParkingSpot, Tag = "Tag" });
+        //    _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), true));
+        //}
 
-            _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.HandicappedParkingSpot, Tag = "Tag" });
-            _ticketGenerator.Verify(x => x.InstructionGenerator(It.IsAny<bool>(), true));
-        }
     }
 }

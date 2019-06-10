@@ -63,6 +63,7 @@
     <Compile Include="Generator\TicketGeneratorTests.cs" />
     <Compile Include="ParkingTicketCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketIssuerTests.cs" />
     <Compile Include="TowDeterminer\TowDeterminerServiceTests.cs" />
     <Compile Include="TowDeterminer\TowRules\TowIfTotalFinesEquateMoreThanMaximumAmountTests.cs" />
     <Compile Include="TowDeterminer\TowRules\TowIfVehicleHasThreeOrMoreTicketsTests .cs" />

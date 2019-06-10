@@ -16,5 +16,6 @@ namespace ParkingTicket.DataAccess
         /// <param name="fine">How much is the fine?</param>
         /// <returns>DTO of the exampleTicket</returns>
         ParkingTicketDto IssueParkingTicketDto(string offense, int fine);
+        List<ParkingTicketDto> GetTicketsFromTag(string tag);
     }
 }
