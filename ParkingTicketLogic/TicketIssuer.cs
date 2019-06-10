@@ -22,21 +22,20 @@ namespace ParkingTicketLogic
         }
         public bool DetermineTicket(ParkingOffense scanOffense, string scanTag)
         {
-            //Is It a holiday?
-            var holidays = _holidayService.GetHolidays();
-            bool isHoliday = holidays.Any(
-                x => x.Date.Month == SystemTime.Now().Month 
-                     && x.Date.Day == SystemTime.Now().Day);
-
-
             //Note: We should probably move this into an engine like we have for tows.
             //      It could also determine how much the ticket is for, and handle
             //      warning tickets maybe.
             bool isTicketableOffense = true;
-            if (isHoliday && scanOffense == ParkingOffense.ExpiredParkingMeter)
+            if (scanOffense == ParkingOffense.ExpiredParkingMeter)
             {
+                //Is It a holiday?
+                var holidays = _holidayService.GetHolidays();
+                bool isHoliday = holidays.Any(
+                    x => x.Date.Month == SystemTime.Now().Month
+                         && x.Date.Day == SystemTime.Now().Day);
+
                 //It is a holiday, we don't charge meters on holiday!
-                isTicketableOffense = false;
+                isTicketableOffense = !isHoliday;
             }
 
             //We don't want to give a ticket to the same tag, on the same day, for the same thing

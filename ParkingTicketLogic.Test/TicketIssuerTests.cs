@@ -200,5 +200,25 @@ namespace ParkingTicketLogic.Test
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void ShouldNotCareAboutHolidaysWhenParkingInAHandicappedSpot()
+        {
+            //Scenario: Users report slowness when issuing tickets.
+            //          One optimization we can make is only call the 
+            //          holiday lookups when it is a holiday.
+
+
+            //Arrange
+            _myStateParkingAuthority.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _sut = new TicketIssuer(_holidayService.Object, _myStateParkingAuthority.Object);
+
+            //Act
+            bool result = _sut.DetermineTicket(ParkingOffense.HandicappedParkingSpot, _tag);
+
+            //Assert
+            _holidayService.Verify(x=>x.GetHolidays(),Times.Never);
+
+        }
+
     }
 }
