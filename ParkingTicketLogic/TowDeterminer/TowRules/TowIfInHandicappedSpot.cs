@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkingTicket.DataAccess.DTO;
-
-namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿namespace ParkingTicketLogic.TowDeterminer.TowRules
 {
-    public class TowIfInHandicappedSpot:ITowRule
+    public class TowIfInHandicappedSpot:TowRule
     {
-        public bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense)
+        private readonly ParkingOffense _offense;
+
+        public TowIfInHandicappedSpot(ParkingOffense offense)
         {
-            return offense == ParkingOffense.HandicappedParkingSpot;
+            _offense = offense;
+        }
+        public override bool ShouldTowCar()
+        {
+            return _offense == ParkingOffense.HandicappedParkingSpot;
         }
     }
 }

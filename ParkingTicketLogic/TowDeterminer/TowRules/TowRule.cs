@@ -3,8 +3,8 @@ using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicketLogic.TowDeterminer.TowRules
 {
-    public interface ITowRule
+    public abstract class TowRule
     {
-        bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense);
+       public abstract bool ShouldTowCar();
     }
 }

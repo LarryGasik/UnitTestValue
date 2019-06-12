@@ -133,7 +133,7 @@ namespace ParkingTicketLogic.Test
         }
 
         [Test]
-        public void ShouldNotIssueTicketForExpiredMeterOnNonHoliday()
+        public void ShouldNotIssueTicketForExpiredMeterOnHoliday()
         {
             //Arrange
             SystemTime.SetDateTime(new DateTime(2019, 05, 22));

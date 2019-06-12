@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkingTicket.DataAccess.DTO;
-
-namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿namespace ParkingTicketLogic.TowDeterminer.TowRules
 {
-    public class TowIfVehicleHasThreeOrMoreTickets : ITowRule
+    public class TowIfVehicleHasThreeOrMoreTickets : TowRule
     {
-        public bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense)
+        private readonly int _numberOfTickets;
+
+        public TowIfVehicleHasThreeOrMoreTickets(int numberOfTickets)
         {
-            return existingTickets.Count >= 3;
+            _numberOfTickets = numberOfTickets;
+        }
+
+        public override bool ShouldTowCar()
+        {
+            return _numberOfTickets>=3;
         }
     }
 }

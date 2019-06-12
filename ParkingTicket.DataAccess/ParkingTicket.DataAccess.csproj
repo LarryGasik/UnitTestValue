@@ -47,6 +47,8 @@
     <Compile Include="IHolidayService.cs" />
     <Compile Include="IMyStateParkingAuthority.cs" />
     <Compile Include="IStateParkingAuthority.cs" />
+    <Compile Include="WeatherService.cs" />
+    <Compile Include="IWeatherService.cs" />
     <Compile Include="MyStateParkingAuthority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateParkingAuthorities\IllinoisParkingAuthority.cs" />
