@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
-using ParkingTicket.DataAccess.DTO;
+﻿using NUnit.Framework;
 using ParkingTicketLogic.TowDeterminer.TowRules;
 
 namespace ParkingTicketLogic.Test.TowDeterminer.TowRules
@@ -14,28 +7,20 @@ namespace ParkingTicketLogic.Test.TowDeterminer.TowRules
     public class TowIfInHandicappedSpotTests
     {
         private TowIfInHandicappedSpot _sut;
-        [SetUp]
-        public void Setup()
-        {
-            _sut = new TowIfInHandicappedSpot();
-        }
 
         [Test]
         public void TowCarsIfInHandicappedSpot()
         {
-            var result = _sut.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.HandicappedParkingSpot);
+            _sut = new TowIfInHandicappedSpot(ParkingOffense.HandicappedParkingSpot);
+            var result = _sut.ShouldTowCar();
             Assert.IsTrue(result);
         }
 
         [Test]
         public void ShouldNotTowIfExpiredMeter()
         {
-            List<ParkingTicketDto> tickets = new List<ParkingTicketDto>();
-            tickets.Add( new ParkingTicketDto());
-            tickets.Add( new ParkingTicketDto());
-            tickets.Add( new ParkingTicketDto());
-            tickets.Add( new ParkingTicketDto());
-            var result = _sut.ShouldTowCar(tickets, ParkingOffense.ExpiredParkingMeter);
+            _sut = new TowIfInHandicappedSpot(ParkingOffense.ExpiredParkingMeter);
+            var result = _sut.ShouldTowCar();
             Assert.IsFalse(result);
         }
     }

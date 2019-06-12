@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkingTicket.DataAccess.DTO;
-
-namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿namespace ParkingTicketLogic.TowDeterminer.TowRules
 {
-    public class TowIfTotalFinesEquateMoreThanMaximumAmount : ITowRule
+    public class TowIfTotalFinesEquateMoreThanMaximumAmount : TowRule
     {
-        public bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense)
+        private readonly int _finesOwed;
+
+        public TowIfTotalFinesEquateMoreThanMaximumAmount(int finesOwed)
         {
-            //Todo: Retrieve Maximum from a config, or some other place
-            return existingTickets.Sum(x => x.Fine) > 300;
+            _finesOwed = finesOwed;
+        }
+
+        public override bool ShouldTowCar()
+        {
+            return _finesOwed > 300;
         }
     }
 }
