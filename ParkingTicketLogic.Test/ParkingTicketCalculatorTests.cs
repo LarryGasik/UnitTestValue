@@ -42,7 +42,7 @@ namespace ParkingTicketLogic.Test
         public void ShouldTakeResultFromTowGeneratorAndSendToTicketGenerator()
         {
             //Arrange
-            _towDeterminerService.Setup(x => x.ShouldTowCar(ParkingOffense.BlockingFireHydrant, tag)).Returns(true);
+            _towDeterminerService.Setup(x => x.ShouldTowCar(ParkingOffense.BlockingFireHydrant, tag, It.IsAny<int>())).Returns(true);
             _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
 
             //Act

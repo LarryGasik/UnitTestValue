@@ -44,7 +44,7 @@ namespace ParkingTicketLogic.TowDeterminer
             _EnforcementRules = rules;
         }
 
-        public bool ShouldTowCar(ParkingOffense offense, string tag)
+        public bool ShouldTowCar(ParkingOffense offense, string tag, int zipCode)
         {
             List<ParkingTicketDto> ParkingTickets = new List<ParkingTicketDto>();
             
@@ -61,7 +61,7 @@ namespace ParkingTicketLogic.TowDeterminer
             ParkingTickets.AddRange(_IN.GetTicketsFromTag(tag));
             ParkingTickets.AddRange(_PA.GetTicketsFromTag(tag));
 
-            bool shouldTow = _EnforcementRules.ShouldTowCar(ParkingTickets, offense);
+            bool shouldTow = _EnforcementRules.ShouldTowCar(ParkingTickets, offense, zipCode);
             return shouldTow;
         }
     }

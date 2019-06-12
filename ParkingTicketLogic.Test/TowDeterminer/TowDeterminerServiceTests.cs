@@ -43,12 +43,12 @@ namespace ParkingTicketLogic.Test.TowDeterminer
             _IN.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
             _PA.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
             _EnforcementRules
-                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk))
+                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
                 .Returns(true);
             _sut = new TowDeterminerService(_MY.Object,_IL.Object, _IN.Object, _PA.Object, _EnforcementRules.Object);
 
             //Act
-            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag);
+            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag, It.IsAny<int>());
 
             //Assert
             Assert.IsTrue(result);
@@ -63,12 +63,12 @@ namespace ParkingTicketLogic.Test.TowDeterminer
             _IN.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
             _PA.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
             _EnforcementRules
-                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk))
+                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
                 .Returns(true);
             _sut = new TowDeterminerService(_MY.Object, _IL.Object, _IN.Object, _PA.Object, _EnforcementRules.Object);
 
             //Act
-            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag);
+            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag, It.IsAny<int>());
 
             //Assert
             _MY.Verify(x => x.GetTicketsFromTag(_tag), Times.Once);
@@ -92,15 +92,15 @@ namespace ParkingTicketLogic.Test.TowDeterminer
             _IN.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto> {sampleTicket});
             _PA.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
             _EnforcementRules
-                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk))
+                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
                 .Returns(true);
             _sut = new TowDeterminerService(_MY.Object, _IL.Object, _IN.Object, _PA.Object, _EnforcementRules.Object);
 
             //Act
-            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag);
+            bool result = _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag, It.IsAny<int>());
 
             //Assert
-            _EnforcementRules.Verify(x=>x.ShouldTowCar(new List<ParkingTicketDto>{sampleTicket},  ParkingOffense.BlockingSidewalk),Times.Once);
+            _EnforcementRules.Verify(x=>x.ShouldTowCar(new List<ParkingTicketDto>{sampleTicket},  ParkingOffense.BlockingSidewalk, It.IsAny<int>()),Times.Once);
         }
     }
 }

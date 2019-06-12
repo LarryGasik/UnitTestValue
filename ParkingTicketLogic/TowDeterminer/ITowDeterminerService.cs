@@ -5,6 +5,6 @@ namespace ParkingTicketLogic.TowDeterminer
 {
     public interface ITowDeterminerService
     {
-        bool ShouldTowCar(ParkingOffense offense, string tag);
+        bool ShouldTowCar(ParkingOffense offense, string tag, int zipCode);
     }
 }

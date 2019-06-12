@@ -53,8 +53,9 @@
     <Compile Include="TowDeterminer\ITowDeterminerService.cs" />
     <Compile Include="TowDeterminer\TowDeterminerService.cs" />
     <Compile Include="TowDeterminer\TowRuleEnforcements\ITowRuleEnforcements.cs" />
-    <Compile Include="TowDeterminer\TowRuleEnforcements\TowRuleEnforcementBase.cs" />
+    <Compile Include="TowDeterminer\TowRuleEnforcements\TowRuleEnforcementsWinter2019.cs" />
     <Compile Include="TowDeterminer\TowRuleEnforcements\TowRuleEnforcementsSpring2019.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfSnowOnGround.cs" />
     <Compile Include="TowDeterminer\TowRules\TowRule.cs" />
     <Compile Include="TowDeterminer\TowRules\TowIfInHandicappedSpot.cs" />
     <Compile Include="TowDeterminer\TowRules\TowIfTotalFinesEquateMoreThanMaximumAmount.cs" />

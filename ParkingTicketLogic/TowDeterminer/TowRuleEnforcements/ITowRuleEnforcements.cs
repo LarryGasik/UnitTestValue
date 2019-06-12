@@ -5,6 +5,6 @@ namespace ParkingTicketLogic.TowDeterminer.TowRuleEnforcements
 {
     public interface ITowRuleEnforcements
     {
-        bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense);
+        bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense, int zipCode);
     }
 }

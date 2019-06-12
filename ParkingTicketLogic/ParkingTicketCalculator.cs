@@ -31,7 +31,7 @@ namespace ParkingTicketLogic
         public string ScanForOffense(ScanInformation scan)
         {
             bool issuedTicket = _ticketIssuer.DetermineTicket(scan.Offense, scan.Tag);
-            bool towCar = _towDeterminerService.ShouldTowCar(scan.Offense, scan.Tag);
+            bool towCar = _towDeterminerService.ShouldTowCar(scan.Offense, scan.Tag, scan.zipCode);
             string result = _ticketGenerator.InstructionGenerator(towCar, issuedTicket);
             return result;
             
