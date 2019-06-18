@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using ParkingTicket.DataAccess;
-using ParkingTicket.DataAccess.DTO;
 using ParkingTicketLogic.DTO;
-using ParkingTicketLogic.Providers;
+using ParkingTicketLogic.Generators;
+using ParkingTicketLogic.TowDeterminer;
 
 namespace ParkingTicketLogic.Test
 {
@@ -13,44 +11,64 @@ namespace ParkingTicketLogic.Test
     public class ParkingTicketCalculatorTests
     {
         private ParkingTicketCalculator _sut;
-        private Mock<IHolidayService> _IHolidayService;
-
+        private Mock<ITicketGenerator> _ticketGenerator;
+        private Mock<ITicketIssuer> _ticketIssuer;
+        private Mock<ITowDeterminerService> _towDeterminerService;
+        private string tag;
         [SetUp]
         public void SetUp()
         {
-           _IHolidayService = new Mock<IHolidayService>();
+            tag = Guid.NewGuid().ToString();
+            _ticketGenerator = new Mock<ITicketGenerator>();
+            _towDeterminerService=new Mock<ITowDeterminerService>();
+            _ticketIssuer = new Mock<ITicketIssuer>();
         }
 
         [Test]
-        public void TicketsShouldNotBeIssuedWhenItIsAHoliday()
+        public void ShouldTakeResultFromTicketIssuerAndSendToTicketGenerator()
         {
-            SystemTime.SetDateTime(new DateTime(2019,05,22));
-            _IHolidayService.Setup(x => x.GetHolidays())
-                .Returns(
-                    new List<HolidayDTO>
-                    {
-                        new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
-                    });
-            _sut = new ParkingTicketCalculator(_IHolidayService.Object);
-            string result = _sut.ScanForOffense(new ScanInformation {Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Bill"});
-            Assert.AreEqual(String.Empty, result);
+            //Arrange
+            _ticketIssuer.Setup(x => x.DetermineTicket(ParkingOffense.BlockingFireHydrant, tag)).Returns(true);
+            _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
+
+            //Act
+            _sut.ScanForOffense(new ScanInformation {Offense = ParkingOffense.BlockingFireHydrant, Tag=tag});
             
+            //Assert
+            _ticketGenerator.Verify(x=>x.InstructionGenerator(It.IsAny<bool>(),true),Times.Once);
         }
 
         [Test]
-        public void TicketsShouldBeIssuedWhenItIsAHoliday()
+        public void ShouldTakeResultFromTowGeneratorAndSendToTicketGenerator()
         {
-            SystemTime.SetDateTime(new DateTime(2019, 05, 21));
-            _IHolidayService.Setup(x => x.GetHolidays())
-                .Returns(
-                    new List<HolidayDTO>
-                    {
-                        new HolidayDTO{Date = new DateTime(2019,05,22),TitleOfDay = "Mayor's Birthday"},
-                    });
-            _sut = new ParkingTicketCalculator(_IHolidayService.Object);
-            string result = _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.ExpiredParkingMeter, Tag = "Bill" });
-            Assert.AreEqual("here's your ticket", result);
+            //Arrange
+            _towDeterminerService.Setup(x => x.ShouldTowCar(ParkingOffense.BlockingFireHydrant, tag, It.IsAny<int>())).Returns(true);
+            _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
 
+            //Act
+            _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.BlockingFireHydrant, Tag = tag });
+
+            //Assert
+            _ticketGenerator.Verify(x => x.InstructionGenerator(true, It.IsAny<bool>()), Times.Once);
         }
+
+        [Test]
+        public void ShouldReturnStringFromTicketGenerator()
+        {
+            string magicString = "Lemmy Rules";
+
+            //Arrange
+            _ticketGenerator.Setup(
+                x => x.InstructionGenerator(It.IsAny<bool>(),It.IsAny<bool>()))
+                .Returns(magicString);
+            _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
+
+            //Act
+            string result =_sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.BlockingFireHydrant, Tag = tag });
+
+            //Assert
+            Assert.AreEqual(magicString, result);
+        }
+
     }
 }

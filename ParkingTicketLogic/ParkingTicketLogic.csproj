@@ -42,10 +42,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\ScanInformation.cs" />
+    <Compile Include="Generators\ITicketGenerator.cs" />
+    <Compile Include="Generators\TicketGenerator.cs" />
+    <Compile Include="ITicketIssuer.cs" />
     <Compile Include="ParkingOffense.cs" />
     <Compile Include="ParkingTicketCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SystemTime.cs" />
+    <Compile Include="TicketIssuer.cs" />
+    <Compile Include="TowDeterminer\ITowDeterminerService.cs" />
+    <Compile Include="TowDeterminer\TowDeterminerService.cs" />
+    <Compile Include="TowDeterminer\TowRuleEnforcements\ITowRuleEnforcements.cs" />
+    <Compile Include="TowDeterminer\TowRuleEnforcements\TowRuleEnforcementsWinter2019.cs" />
+    <Compile Include="TowDeterminer\TowRuleEnforcements\TowRuleEnforcementsSpring2019.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfSnowOnGround.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowRule.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfInHandicappedSpot.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfTotalFinesEquateMoreThanMaximumAmount.cs" />
+    <Compile Include="TowDeterminer\TowRules\TowIfVehicleHasThreeOrMoreTickets.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParkingTicket.DataAccess\ParkingTicket.DataAccess.csproj">
