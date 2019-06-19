@@ -16,6 +16,7 @@ namespace ParkingTicketLogic
         /// This option is just for ed so he can see branches and
         /// Pull Requests.
         /// </summary>
-        SampleBranchForEd
+        SampleBranchForEd,
+        SampleBranchLarry
     }
 }
