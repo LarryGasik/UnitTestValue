@@ -11,6 +11,10 @@ namespace ParkingTicketLogic
         ExpiredParkingMeter,
         HandicappedParkingSpot,
         BlockingSidewalk,
-        BlockingFireHydrant
+        BlockingFireHydrant,
+        /// <summary>
+        /// New for the test of git.
+        /// </summary>
+        DrivingWhileAngry
     }
 }
