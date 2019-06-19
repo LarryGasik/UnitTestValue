@@ -13,10 +13,8 @@ namespace ParkingTicketLogic
         BlockingSidewalk,
         BlockingFireHydrant,
         /// <summary>
-        /// This option is just for ed so he can see branches and
-        /// Pull Requests.
+        /// New for the test of git.
         /// </summary>
-        SampleBranchForEd,
-        SampleBranchLarry
+        DrivingWhileAngry
     }
 }
