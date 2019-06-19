@@ -11,6 +11,11 @@ namespace ParkingTicketLogic
         ExpiredParkingMeter,
         HandicappedParkingSpot,
         BlockingSidewalk,
-        BlockingFireHydrant
+        BlockingFireHydrant,
+        /// <summary>
+        /// This option is just for ed so he can see branches and
+        /// Pull Requests.
+        /// </summary>
+        SampleBranchForEd
     }
 }
