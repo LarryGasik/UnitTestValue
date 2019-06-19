@@ -15,6 +15,11 @@ namespace ParkingTicketLogic
         /// <summary>
         /// New for the test of git.
         /// </summary>
-        DrivingWhileAngry
+        DrivingWhileAngry,
+        ///<summary>
+        ///
+        /// </summary>
+        /// 
+        DrivingUnderTheInfluence
     }
 }
