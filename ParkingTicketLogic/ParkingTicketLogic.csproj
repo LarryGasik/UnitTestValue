@@ -66,6 +66,10 @@
       <Project>{bd7bb194-4bcb-4631-81f7-aaecd80b3faf}</Project>
       <Name>ParkingTicket.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParkingTicket.Logging\ParkingTicket.Logging.csproj">
+      <Project>{caba42aa-78ab-4b74-a283-804377b1495c}</Project>
+      <Name>ParkingTicket.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
