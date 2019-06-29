@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
+using ParkingTicket.Logging;
 using ParkingTicketLogic.TowDeterminer.TowRuleEnforcements;
 
 namespace ParkingTicketLogic.TowDeterminer
@@ -12,6 +13,7 @@ namespace ParkingTicketLogic.TowDeterminer
     /// </summary>
     public class TowDeterminerService:ITowDeterminerService
     {
+        private ILogger _logger;
         private IStateParkingAuthority _MY;
         private IStateParkingAuthority _IL;
         private IStateParkingAuthority _IN;
@@ -22,6 +24,7 @@ namespace ParkingTicketLogic.TowDeterminer
         //      Because these constructors are out of control. Can we use 
         //      It in just a library?
         public TowDeterminerService():this(
+            new Logger(), 
             new MyStateParkingAuthority(),
             new IllinoisParkingAuthority(),
             new IndianaParingAuthority(),
@@ -32,12 +35,14 @@ namespace ParkingTicketLogic.TowDeterminer
         }
 
         public TowDeterminerService(
+            ILogger logger,
             IStateParkingAuthority MY, 
             IStateParkingAuthority IL, 
             IStateParkingAuthority IN, 
             IStateParkingAuthority PA,
             ITowRuleEnforcements rules)
         {
+            _logger = logger;
             _MY = MY;
             _IL = IL;
             _IN = IN;
@@ -69,7 +74,7 @@ namespace ParkingTicketLogic.TowDeterminer
                 }
                 catch (Exception e)
                 {
-                    //Todo: Log this!
+                    _logger.LogException(e);
                 }
             }
 

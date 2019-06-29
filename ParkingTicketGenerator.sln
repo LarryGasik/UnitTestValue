@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingTicketLogic.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingTicket.DataAccess", "ParkingTicket.DataAccess\ParkingTicket.DataAccess.csproj", "{BD7BB194-4BCB-4631-81F7-AAECD80B3FAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingTicket.Logging", "ParkingTicket.Logging\ParkingTicket.Logging.csproj", "{CABA42AA-78AB-4B74-A283-804377B1495C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD7BB194-4BCB-4631-81F7-AAECD80B3FAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD7BB194-4BCB-4631-81F7-AAECD80B3FAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD7BB194-4BCB-4631-81F7-AAECD80B3FAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABA42AA-78AB-4B74-A283-804377B1495C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABA42AA-78AB-4B74-A283-804377B1495C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABA42AA-78AB-4B74-A283-804377B1495C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABA42AA-78AB-4B74-A283-804377B1495C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
