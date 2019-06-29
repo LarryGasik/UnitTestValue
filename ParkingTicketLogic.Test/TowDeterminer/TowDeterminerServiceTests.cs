@@ -81,7 +81,6 @@ namespace ParkingTicketLogic.Test.TowDeterminer
         public void ShouldPassTicketsIntoEnforcementRules()
         {
             //Arrange
-
             ParkingTicketDto sampleTicket =  new ParkingTicketDto
             {
                 DateOfOffense = DateTime.MinValue,Fine = 3, Offense = "bad hair",
@@ -101,6 +100,52 @@ namespace ParkingTicketLogic.Test.TowDeterminer
 
             //Assert
             _EnforcementRules.Verify(x=>x.ShouldTowCar(new List<ParkingTicketDto>{sampleTicket},  ParkingOffense.BlockingSidewalk, It.IsAny<int>()),Times.Once);
+        }
+
+        [Test]
+        public void ShouldCallAllStateRepositoriesWhenMyStateExceptionIsThrown()
+        {
+            //Arrange
+            _MY.Setup(x => x.GetTicketsFromTag(It.IsAny<string>())).Throws(new Exception("SomeExceptionThrown"));
+            _IL.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _IN.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _PA.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _EnforcementRules
+                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
+                .Returns(true);
+            _sut = new TowDeterminerService(_MY.Object, _IL.Object, _IN.Object, _PA.Object, _EnforcementRules.Object);
+
+            //Act
+            _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag, It.IsAny<int>());
+
+            //Assert
+            _MY.Verify(x=>x.GetTicketsFromTag(_tag),Times.Once);
+            _IL.Verify(x=>x.GetTicketsFromTag(_tag),Times.Once);
+            _IN.Verify(x=>x.GetTicketsFromTag(_tag),Times.Once);
+            _PA.Verify(x=>x.GetTicketsFromTag(_tag),Times.Once);
+        }
+
+        [Test]
+        public void ShouldCallAllStateRepositoriesWhenPAExceptionIsThrown()
+        {
+            //Arrange
+            _PA.Setup(x => x.GetTicketsFromTag(It.IsAny<string>())).Throws(new Exception("SomeExceptionThrown"));
+            _IL.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _IN.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _MY.Setup(x => x.GetTicketsFromTag(_tag)).Returns(new List<ParkingTicketDto>());
+            _EnforcementRules
+                .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
+                .Returns(true);
+            _sut = new TowDeterminerService(_MY.Object, _IL.Object, _IN.Object, _PA.Object, _EnforcementRules.Object);
+
+            //Act
+            _sut.ShouldTowCar(ParkingOffense.BlockingSidewalk, _tag, It.IsAny<int>());
+
+            //Assert
+            _MY.Verify(x => x.GetTicketsFromTag(_tag), Times.Once);
+            _IL.Verify(x => x.GetTicketsFromTag(_tag), Times.Once);
+            _IN.Verify(x => x.GetTicketsFromTag(_tag), Times.Once);
+            _PA.Verify(x => x.GetTicketsFromTag(_tag), Times.Once);
         }
     }
 }
