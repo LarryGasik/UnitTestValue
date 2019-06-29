@@ -1,4 +1,4 @@
-The purpose of this repository is to show the evolution of introducing AUT into code that you may currently have in your system. We start from a functional, buggy, unoptimized piece of code to be tested, better architected, easier to read, and starting to implement SOLID principles. Each commit moves forward toward an ideal situation, and corrects bugs that have been uncovered in the process of writing tests.
+The purpose of this repository is to show the evolution of introducing AUT into code that you may currently have in your system. We start from a functional, buggy, unoptimized piece of code to be tested, better architected, easier to read, and started to implement SOLID principles. Each commit moves forward toward an ideal situation, and corrects bugs that have been uncovered in the process of writing tests.
 
 Automated Unit Tests (AUT) are a concept that most developers do not initially see as beneficial. When I was introduced to AUT, my first response was, “I’m going to write buggy code, to test my buggy code.” It takes real world experience to see the true purpose of AUT.
 
