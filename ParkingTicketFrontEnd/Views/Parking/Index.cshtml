@@ -1,11 +1,28 @@
 ﻿
 @{
     ViewBag.Title = "Parking Tester";
+    SelectList offenseCombo = new SelectList(ViewBag.OffenseList, "ID", "Name");
 }
     <h2>Parking Tester Page</h2>
     <div class="row">
         <div class="col-md-6, col-sm-12">
+            @using(Html.BeginForm("", "", FormMethod.Post, new {enctype ="multipart/form-data"}))
+            {
+                @Html.AntiForgeryToken()
 
+                <div class="form-horizontal">
+                    <h4>Enter Information</h4>
+                    <hr/>
+                    <div class="from-group">
+                        <div class="col-md-2">
+                            Offense: 
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DropDownList("cboOffense", offenseCombo, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         <div class="col-md-6, col-sm-12">
 
