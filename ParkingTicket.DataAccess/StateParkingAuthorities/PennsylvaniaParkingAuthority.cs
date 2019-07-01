@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicket.DataAccess.StateParkingAuthorities
@@ -8,6 +9,10 @@ namespace ParkingTicket.DataAccess.StateParkingAuthorities
     {
         public List<ParkingTicketDto> GetTicketsFromTag(string tag)
         {
+            //Note: I'm not actually hitting a service, so I'm doing this
+            //      to simulate the HTTP request waiting. Sometimes fast.
+            //      Sometimes Slow.
+            Thread.Sleep((int)DateTime.Now.DayOfWeek * 777);
             List<ParkingTicketDto> tickets =  new List<ParkingTicketDto>();
 
             if (tag == "Alex")
