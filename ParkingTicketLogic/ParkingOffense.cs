@@ -2,9 +2,10 @@
 {
     public enum ParkingOffense
     {
-        ExpiredParkingMeter,
-        HandicappedParkingSpot,
-        BlockingSidewalk,
-        BlockingFireHydrant
+        UnknownParkingOffense=0,
+        ExpiredParkingMeter = 1,
+        HandicappedParkingSpot = 2,
+        BlockingSidewalk = 3,
+        BlockingFireHydrant = 4
     }
 }
