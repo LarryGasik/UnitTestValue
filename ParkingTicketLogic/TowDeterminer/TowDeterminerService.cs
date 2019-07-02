@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
+using ParkingTicket.Logging;
 using ParkingTicketLogic.TowDeterminer.TowRuleEnforcements;
 
 namespace ParkingTicketLogic.TowDeterminer
@@ -11,6 +13,7 @@ namespace ParkingTicketLogic.TowDeterminer
     /// </summary>
     public class TowDeterminerService:ITowDeterminerService
     {
+        private ILogger _logger;
         private IStateParkingAuthority _MY;
         private IStateParkingAuthority _IL;
         private IStateParkingAuthority _IN;
@@ -21,6 +24,7 @@ namespace ParkingTicketLogic.TowDeterminer
         //      Because these constructors are out of control. Can we use 
         //      It in just a library?
         public TowDeterminerService():this(
+            new Logger(), 
             new MyStateParkingAuthority(),
             new IllinoisParkingAuthority(),
             new IndianaParingAuthority(),
@@ -31,12 +35,14 @@ namespace ParkingTicketLogic.TowDeterminer
         }
 
         public TowDeterminerService(
+            ILogger logger,
             IStateParkingAuthority MY, 
             IStateParkingAuthority IL, 
             IStateParkingAuthority IN, 
             IStateParkingAuthority PA,
             ITowRuleEnforcements rules)
         {
+            _logger = logger;
             _MY = MY;
             _IL = IL;
             _IN = IN;
@@ -49,17 +55,28 @@ namespace ParkingTicketLogic.TowDeterminer
             List<ParkingTicketDto> ParkingTickets = new List<ParkingTicketDto>();
             
             //Gather Tickets from all states
-            
-            //Note: Imagine if we did every state, and each called a web service.
+            List<IStateParkingAuthority> parkingAuthorities = new List<IStateParkingAuthority>
+            {
+                _MY, _IL, _IN, _PA
+            };
+
+            //Note: Imagine if we did all 50 states, and each called a web service.
             //Todo: We can eventually move this to async calls
             //Todo: Let's see if we can reduce the number of calls
             //      by changing how we add to the parking tickets object.
             //      Once we hit one state that trips flags for being towed,
             //      no need to keep calling.
-            ParkingTickets.AddRange(_MY.GetTicketsFromTag(tag));
-            ParkingTickets.AddRange(_IL.GetTicketsFromTag(tag));
-            ParkingTickets.AddRange(_IN.GetTicketsFromTag(tag));
-            ParkingTickets.AddRange(_PA.GetTicketsFromTag(tag));
+            foreach (IStateParkingAuthority parkingAuthority in parkingAuthorities)
+            {
+                try
+                {
+                    ParkingTickets.AddRange(parkingAuthority.GetTicketsFromTag(tag));
+                }
+                catch (Exception e)
+                {
+                    _logger.LogException(e);
+                }
+            }
 
             bool shouldTow = _EnforcementRules.ShouldTowCar(ParkingTickets, offense, zipCode);
             return shouldTow;
