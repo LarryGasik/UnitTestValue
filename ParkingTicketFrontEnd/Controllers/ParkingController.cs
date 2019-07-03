@@ -13,7 +13,7 @@ namespace ParkingTicketFrontEnd.Controllers
     {
         /// <summary>
         /// without too much fuss or violating the DRY principle.
-        /// ejw 2-JLY-2019
+        /// ejw 3-JLY-2019
         /// </summary>
         /// <returns>Nothing this is a sample git</returns>
         [HttpGet]
@@ -28,7 +28,7 @@ namespace ParkingTicketFrontEnd.Controllers
 
         ///<summary>
         /// The HTTP post of the form
-        /// ejw 2-JLY-2019 it is clear we are going 
+        /// ejw 3-JLY-2019 it is clear we are going 
         /// to needs a view model object to pass stuff back and forth
         /// 
         /// 
