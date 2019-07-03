@@ -21,7 +21,7 @@ namespace ParkingTicketFrontEnd.Controllers
         {
             ParkingTicket_VM _VM = new ParkingTicket_VM();
             //application of the dry principle for the combo box.
-            ViewBag.Offenses = ParkingOffenseFactory.CreateOffenseSelectList();
+            ViewBag.Offenses = EnumerationExtensionMethods.SelectListFor(typeof(ParkingOffense));
             //set up the form
             return View(_VM);
         }
@@ -40,7 +40,7 @@ namespace ParkingTicketFrontEnd.Controllers
             ParkingTicketCalculator _ticketCalculator = new ParkingTicketCalculator();
             int zip = Convert.ToInt32(ZipCode);
             //application of the dry principle for the combo box.
-            ViewBag.Offenses = ParkingOffenseFactory.CreateOffenseSelectList();
+            ViewBag.Offenses = EnumerationExtensionMethods.SelectListFor(typeof(ParkingOffense));
             //this does the heavy lifting and tells us the message we need for the vehicle and tags.
             _VM.ParkingTicketMessage = _ticketCalculator.ScanForOffense(new ParkingTicketLogic.DTO.ScanInformation { Offense = cboOffense, Tag = VehicleTag, zipCode = zip });
             return View(_VM);
