@@ -30,13 +30,16 @@ namespace ParkingTicketUI
             //Todo: Probably should have verification on this so that we fail safely
             //      when someone enters ham as a zip.
             int zip = Convert.ToInt32(args[2]);
-            string result = ptc.ScanForOffense(new ScanInformation{Offense = myOffense, Tag = tag, zipCode = zip});
             Console.WriteLine("Parking Offense: " + myOffense.ToString());
             Console.WriteLine("Tag:             " + tag);
             Console.WriteLine("Zip Code:        " + zip);
+            Console.WriteLine("Scan Started at: " + DateTime.Now.ToString());
+
+            string result = ptc.ScanForOffense(new ScanInformation { Offense = myOffense, Tag = tag, zipCode = zip });
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine(result);
             Console.WriteLine(Environment.NewLine);
+            Console.WriteLine("Scan Done at:    " + DateTime.Now.ToString());
             Console.WriteLine("Press any key to close.");
             Console.ReadKey();
         }
