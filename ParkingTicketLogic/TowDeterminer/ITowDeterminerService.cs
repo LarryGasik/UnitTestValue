@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicketLogic.TowDeterminer
 {
     public interface ITowDeterminerService
     {
-        bool ShouldTowCar(ParkingOffense offense, string tag, int zipCode);
+        Task<bool> ShouldTowCar(ParkingOffense offense, string tag, int zipCode);
     }
 }

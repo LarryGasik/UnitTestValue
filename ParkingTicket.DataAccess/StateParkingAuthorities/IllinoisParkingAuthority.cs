@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicket.DataAccess.StateParkingAuthorities
 {
     public class IllinoisParkingAuthority:IStateParkingAuthority
     {
-        public List<ParkingTicketDto> GetTicketsFromTag(string tag)
+        public Task<List<ParkingTicketDto>> GetTicketsFromTag(string tag)
         {
             //Note: I'm not actually hitting a service, so I'm doing this
             //      to simulate the HTTP request waiting. Sometimes fast.

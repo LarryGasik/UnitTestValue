@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicket.DataAccess
@@ -23,7 +24,7 @@ namespace ParkingTicket.DataAccess
         /// </summary>
         /// <param name="tag"> tag of car</param>
         /// <returns>A list of tickets for said car.</returns>
-        public List<ParkingTicketDto> GetTicketsFromTag(string tag)
+        public async Task<List<ParkingTicketDto>> GetTicketsFromTag(string tag)
         {
             return new List<ParkingTicketDto>();
         }

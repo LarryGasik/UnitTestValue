@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ParkingTicket.DataAccess.DTO;
 
 namespace ParkingTicket.DataAccess
 {
     public interface IStateParkingAuthority
     {
-        List<ParkingTicketDto> GetTicketsFromTag(string tag);
+        Task<List<ParkingTicketDto>> GetTicketsFromTag(string tag);
     }
 }

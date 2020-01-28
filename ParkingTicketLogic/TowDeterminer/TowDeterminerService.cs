@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
@@ -50,7 +51,7 @@ namespace ParkingTicketLogic.TowDeterminer
             _EnforcementRules = rules;
         }
 
-        public bool ShouldTowCar(ParkingOffense offense, string tag, int zipCode)
+        public async Task<bool> ShouldTowCar(ParkingOffense offense, string tag, int zipCode)
         {
             List<ParkingTicketDto> ParkingTickets = new List<ParkingTicketDto>();
             
@@ -70,7 +71,9 @@ namespace ParkingTicketLogic.TowDeterminer
             {
                 try
                 {
-                    ParkingTickets.AddRange(parkingAuthority.GetTicketsFromTag(tag));
+                    var result = parkingAuthority.GetTicketsFromTag(tag);
+                    var d = await result;
+                    //ParkingTickets.AddRange();
                 }
                 catch (Exception e)
                 {
