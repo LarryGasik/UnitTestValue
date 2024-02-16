@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParkingTicket.DAL\ParkingTicket.DAL.csproj" />
+    <ProjectReference Include="..\ParkingTicket.Logger\ParkingTicket.Logger.csproj" />
+  </ItemGroup>
+
+</Project>
