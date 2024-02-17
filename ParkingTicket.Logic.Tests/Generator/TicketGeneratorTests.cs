@@ -2,7 +2,7 @@
 using NUnit.Framework.Legacy;
 using ParkingTicketLogic.Generators;
 
-namespace ParkingTicketLogic.Test.Generator;
+namespace ParkingTicket.Logic.Tests.Generator;
 
 [TestFixture]
 public class TicketGeneratorTests
@@ -13,7 +13,7 @@ public class TicketGeneratorTests
         _sut = new TicketGenerator();
     }
 
-    private TicketGenerator _sut;
+    private TicketGenerator _sut = null!;
 
     [Test]
     public void NothingReturnedWhenThereIsNoTicketAndNoTicketIssued()
