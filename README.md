@@ -17,3 +17,4 @@ I got some rather lame answers, “It doesn’t make sense to test for a service
 
 The business rules are fairly simple and easy to follow. It is based on the idea of parking tickets. Free parking on holidays, you can’t issue a ticket on the same day for the same violation, your car should be towed if you have 3 or more tickets, etc. They’re easy rules to follow, but the business rules are based on external services, the system time, what is passed in, what is returned, etc. 
 
+[![.NET](https://github.com/LarryGasik/UnitTestValue/actions/workflows/dotnet.yml/badge.svg)](https://github.com/LarryGasik/UnitTestValue/actions/workflows/dotnet.yml)
