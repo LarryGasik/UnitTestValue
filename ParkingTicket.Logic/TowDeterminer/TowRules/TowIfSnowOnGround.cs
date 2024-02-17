@@ -1,6 +1,5 @@
 ﻿using ParkingTicket.DAL;
 using ParkingTicket.DataAccess;
-using ParkingTicketLogic.TowDeterminer.TowRules;
 
 namespace ParkingTicket.Logic.TowDeterminer.TowRules
 {

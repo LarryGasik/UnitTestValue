@@ -3,6 +3,7 @@ using Moq;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using ParkingTicket.Logic;
+using ParkingTicket.Logic.TowDeterminer;
 using ParkingTicketLogic.DTO;
 using ParkingTicketLogic.Generators;
 using ParkingTicketLogic.TowDeterminer;

@@ -1,4 +1,4 @@
-﻿namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules
 {
     public class TowIfTotalFinesEquateMoreThanMaximumAmount : TowRule
     {

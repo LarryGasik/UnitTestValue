@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using NUnit.Framework.Legacy;
-using ParkingTicket.DataAccess.DTO;
-using ParkingTicketLogic.TowDeterminer.TowRules;
+using ParkingTicket.Logic.TowDeterminer.TowRules;
 
-namespace ParkingTicketLogic.Test.TowDeterminer.TowRules
+namespace ParkingTicket.Logic.Tests.TowDeterminer.TowRules
 {
     [TestFixture()]
     public class TowIfVehicleHasThreeOrMoreTicketsTests

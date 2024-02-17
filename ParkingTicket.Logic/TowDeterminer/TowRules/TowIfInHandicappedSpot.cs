@@ -1,4 +1,6 @@
-﻿namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿using ParkingTicket.Logic.TowDeterminer.TowRules;
+
+namespace ParkingTicketLogic.TowDeterminer.TowRules
 {
     public class TowIfInHandicappedSpot:TowRule
     {

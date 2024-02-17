@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using ParkingTicket.DataAccess.DTO;
-
-namespace ParkingTicketLogic.TowDeterminer.TowRules
+﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules
 {
     public abstract class TowRule
     {

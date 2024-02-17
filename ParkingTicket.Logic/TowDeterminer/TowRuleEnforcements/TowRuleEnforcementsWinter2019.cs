@@ -1,7 +1,6 @@
 ﻿using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.Logic.TowDeterminer.TowRules;
 using ParkingTicketLogic;
-using ParkingTicketLogic.TowDeterminer.TowRuleEnforcements;
 using ParkingTicketLogic.TowDeterminer.TowRules;
 
 namespace ParkingTicket.Logic.TowDeterminer.TowRuleEnforcements

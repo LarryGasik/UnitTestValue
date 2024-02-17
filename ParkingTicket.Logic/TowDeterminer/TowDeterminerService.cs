@@ -3,8 +3,8 @@ using ParkingTicket.DataAccess;
 using ParkingTicket.DataAccess.DTO;
 using ParkingTicket.DataAccess.StateParkingAuthorities;
 using ParkingTicket.Logging;
+using ParkingTicket.Logic.TowDeterminer.TowRuleEnforcements;
 using ParkingTicketLogic;
-using ParkingTicketLogic.TowDeterminer;
 using ParkingTicketLogic.TowDeterminer.TowRuleEnforcements;
 
 namespace ParkingTicket.Logic.TowDeterminer
