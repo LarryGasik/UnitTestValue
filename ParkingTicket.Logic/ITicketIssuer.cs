@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ParkingTicketLogic;
 
-namespace ParkingTicketLogic
+public interface ITicketIssuer
 {
-    public interface ITicketIssuer
-    {
-        bool DetermineTicket(ParkingOffense scanOffense, string scanTag);
-    }
+    bool DetermineTicket(ParkingOffense scanOffense, string scanTag);
 }

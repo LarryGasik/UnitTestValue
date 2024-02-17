@@ -1,31 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace ParkingTicketLogic.Generators
+namespace ParkingTicketLogic.Generators;
+
+public class TicketGenerator : ITicketGenerator
 {
-    public class TicketGenerator:ITicketGenerator
+    public string InstructionGenerator(bool TowCar, bool IssueTicket)
     {
-        public string InstructionGenerator(bool TowCar, bool IssueTicket)
+        var sb = new StringBuilder();
+        if (TowCar) sb.Append("Tow");
+
+        if (IssueTicket)
         {
-            StringBuilder sb = new StringBuilder();
-            if (TowCar)
-            {
-               sb.Append("Tow");
-            }
-
-            if (IssueTicket)
-            {
-                if (sb.Length != 0)
-                {
-                    sb.Append(Environment.NewLine);
-                }
-                sb.Append("here's your ticket");
-            }
-
-            return sb.ToString();
+            if (sb.Length != 0) sb.Append(Environment.NewLine);
+            sb.Append("here's your ticket");
         }
+
+        return sb.ToString();
     }
 }

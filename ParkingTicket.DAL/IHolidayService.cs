@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkingTicket.DataAccess.DTO;
+﻿using ParkingTicket.DataAccess.DTO;
 
-namespace ParkingTicket.DataAccess
+namespace ParkingTicket.DataAccess;
+
+public interface IHolidayService
 {
-    public interface IHolidayService
-    {
-        List<HolidayDTO> GetHolidays();
-    }
+    List<HolidayDTO> GetHolidays();
 }

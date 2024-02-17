@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ParkingTicket.DataAccess;
 
-namespace ParkingTicket.DataAccess
+public interface IWeatherService
 {
-    public interface IWeatherService
-    {
-        bool IsSnowOnTheGroundByZip(int zipCode);
-    }
+    bool IsSnowOnTheGroundByZip(int zipCode);
 }

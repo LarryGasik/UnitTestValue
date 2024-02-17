@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using ParkingTicket.DataAccess.DTO;
+﻿using ParkingTicket.DataAccess.DTO;
 
-namespace ParkingTicket.DataAccess
+namespace ParkingTicket.DataAccess;
+
+public interface IStateParkingAuthority
 {
-    public interface IStateParkingAuthority
-    {
-        List<ParkingTicketDto> GetTicketsFromTag(string tag);
-    }
+    List<ParkingTicketDto> GetTicketsFromTag(string tag);
 }

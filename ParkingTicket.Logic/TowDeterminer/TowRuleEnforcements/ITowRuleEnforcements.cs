@@ -1,10 +1,9 @@
 ﻿using ParkingTicket.DataAccess.DTO;
 using ParkingTicketLogic;
 
-namespace ParkingTicket.Logic.TowDeterminer.TowRuleEnforcements
+namespace ParkingTicket.Logic.TowDeterminer.TowRuleEnforcements;
+
+public interface ITowRuleEnforcements
 {
-    public interface ITowRuleEnforcements
-    {
-        bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense, int zipCode);
-    }
+    bool ShouldTowCar(List<ParkingTicketDto> existingTickets, ParkingOffense offense, int zipCode);
 }

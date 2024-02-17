@@ -1,17 +1,16 @@
-﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules
+﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules;
+
+public class TowIfVehicleHasThreeOrMoreTickets : TowRule
 {
-    public class TowIfVehicleHasThreeOrMoreTickets : TowRule
+    private readonly int _numberOfTickets;
+
+    public TowIfVehicleHasThreeOrMoreTickets(int numberOfTickets)
     {
-        private readonly int _numberOfTickets;
+        _numberOfTickets = numberOfTickets;
+    }
 
-        public TowIfVehicleHasThreeOrMoreTickets(int numberOfTickets)
-        {
-            _numberOfTickets = numberOfTickets;
-        }
-
-        public override bool ShouldTowCar()
-        {
-            return _numberOfTickets>=3;
-        }
+    public override bool ShouldTowCar()
+    {
+        return _numberOfTickets >= 3;
     }
 }

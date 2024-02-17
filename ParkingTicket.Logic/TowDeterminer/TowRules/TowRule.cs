@@ -1,7 +1,6 @@
-﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules
+﻿namespace ParkingTicket.Logic.TowDeterminer.TowRules;
+
+public abstract class TowRule
 {
-    public abstract class TowRule
-    {
-       public abstract bool ShouldTowCar();
-    }
+    public abstract bool ShouldTowCar();
 }
