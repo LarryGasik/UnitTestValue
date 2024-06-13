@@ -41,6 +41,7 @@ public class TicketIssuerTests
 
         //Act
         var result = _sut.DetermineTicket(ParkingOffense.BlockingFireHydrant, _tag);
+        //LarryHotFix
 
         //Assert
         ClassicAssert.IsTrue(result);
