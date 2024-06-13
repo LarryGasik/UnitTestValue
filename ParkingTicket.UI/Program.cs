@@ -6,6 +6,7 @@ namespace ParkingTicketUI;
 
 internal class Program
 {
+    //changes on masters
     private static void Main(string[] args)
     {
         var ptc = new ParkingTicketCalculator();
