@@ -5,6 +5,7 @@ namespace ParkingTicket.DAL;
 
 public class HolidaySerivice : IHolidayService
 {
+    // turano-feature change #1
     public List<HolidayDTO> GetHolidays()
     {
         var Holidays = new List<HolidayDTO>();

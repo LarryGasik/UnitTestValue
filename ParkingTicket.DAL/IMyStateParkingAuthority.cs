@@ -4,6 +4,9 @@ namespace ParkingTicket.DAL;
 
 public interface IMyStateParkingAuthority
 {
+    // turano-feature change #2
+
+
     /// <summary>
     ///     Issuing a Parking ticket
     /// </summary>
