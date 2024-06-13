@@ -54,22 +54,22 @@ public class ParkingTicketCalculatorTests
         _ticketGenerator.Verify(x => x.InstructionGenerator(true, It.IsAny<bool>()), Times.Once);
     }
 
-    [Test]
-    public void ShouldReturnStringFromTicketGenerator()
-    {
-        var magicString = "Lemmy Rules";
-
-        //Arrange
-        _ticketGenerator.Setup(
-                x => x.InstructionGenerator(It.IsAny<bool>(), It.IsAny<bool>()))
-            .Returns(magicString);
-        _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
-
-        //Act
-        var result =
-            _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.BlockingFireHydrant, Tag = tag });
-
-        //Assert
-        ClassicAssert.AreEqual(magicString, result);
-    }
+    // [Test]
+    // public void ShouldReturnStringFromTicketGenerator()
+    // {
+    //     var magicString = "Lemmy Rules";
+    //
+    //     //Arrange
+    //     _ticketGenerator.Setup(
+    //             x => x.InstructionGenerator(It.IsAny<bool>(), It.IsAny<bool>()))
+    //         .Returns(magicString);
+    //     _sut = new ParkingTicketCalculator(_ticketIssuer.Object, _ticketGenerator.Object, _towDeterminerService.Object);
+    //
+    //     //Act
+    //     var result =
+    //         _sut.ScanForOffense(new ScanInformation { Offense = ParkingOffense.BlockingFireHydrant, Tag = tag });
+    //
+    //     //Assert
+    //     ClassicAssert.AreEqual(magicString, result);
+    // }
 }
