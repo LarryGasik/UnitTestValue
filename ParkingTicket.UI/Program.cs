@@ -1,6 +1,15 @@
-﻿using ParkingTicket.Logic;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ParkingTicket.DAL;
+using ParkingTicket.DataAccess;
+using ParkingTicket.DataAccess.StateParkingAuthorities;
+using ParkingTicket.Logic;
+using ParkingTicket.Logic.TowDeterminer;
+using ParkingTicket.Logic.TowDeterminer.TowRuleEnforcements;
+using ParkingTicket.Logging;
 using ParkingTicketLogic;
 using ParkingTicketLogic.DTO;
+using ParkingTicketLogic.Generators;
+using ParkingTicketLogic.TowDeterminer.TowRuleEnforcements;
 
 namespace ParkingTicketUI;
 
@@ -9,7 +18,22 @@ internal class Program
     //changes on masters
     private static void Main(string[] args)
     {
-        var ptc = new ParkingTicketCalculator();
+        var services = new ServiceCollection();
+        services.AddSingleton<ILogger, Logger>();
+        services.AddSingleton<IHolidayService, HolidaySerivice>();
+        services.AddSingleton<IMyStateParkingAuthority, MyStateParkingAuthority>();
+        services.AddSingleton<IStateParkingAuthority, MyStateParkingAuthority>();
+        services.AddSingleton<IStateParkingAuthority, IllinoisParkingAuthority>();
+        services.AddSingleton<IStateParkingAuthority, IndianaParingAuthority>();
+        services.AddSingleton<IStateParkingAuthority, PennsylvaniaParkingAuthority>();
+        services.AddSingleton<ITicketIssuer, TicketIssuer>();
+        services.AddSingleton<ITowRuleEnforcements, TowRuleEnforcementsSpring2019>();
+        services.AddSingleton<ITowDeterminerService, TowDeterminerService>();
+        services.AddSingleton<ITicketGenerator, TicketGenerator>();
+        services.AddSingleton<ParkingTicketCalculator>();
+
+        using var serviceProvider = services.BuildServiceProvider();
+        var ptc = serviceProvider.GetRequiredService<ParkingTicketCalculator>();
 
         var myOffense = ParkingOffense.UnknownParkingOffense;
         //Todo: We have to validate user Input. We could pass ham as an argument
