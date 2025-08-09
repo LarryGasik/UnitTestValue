@@ -9,11 +9,6 @@ public class TicketIssuer : ITicketIssuer
 {
     private readonly IHolidayService _holidayService;
     private readonly IMyStateParkingAuthority _myStateParkingAuthority;
-
-    public TicketIssuer() : this(new HolidaySerivice(), new MyStateParkingAuthority())
-    {
-    }
-
     public TicketIssuer(IHolidayService holidayService, IMyStateParkingAuthority myStateParkingAuthority)
     {
         _holidayService = holidayService;

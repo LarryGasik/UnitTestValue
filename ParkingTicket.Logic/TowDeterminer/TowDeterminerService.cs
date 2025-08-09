@@ -15,38 +15,16 @@ namespace ParkingTicket.Logic.TowDeterminer;
 public class TowDeterminerService : ITowDeterminerService
 {
     private readonly ITowRuleEnforcements _EnforcementRules;
-    private readonly IStateParkingAuthority _IL;
-    private readonly IStateParkingAuthority _IN;
     private readonly ILogger _logger;
-    private readonly IStateParkingAuthority _MY;
-    private readonly IStateParkingAuthority _PA;
-
-    //Todo: This is too messy. Let's take advantage of UnityContainer
-    //      Because these constructors are out of control. Can we use 
-    //      It in just a library?
-    public TowDeterminerService() : this(
-        new Logger(),
-        new MyStateParkingAuthority(),
-        new IllinoisParkingAuthority(),
-        new IndianaParingAuthority(),
-        new PennsylvaniaParkingAuthority(),
-        new TowRuleEnforcementsSpring2019())
-    {
-    }
+    private readonly IEnumerable<IStateParkingAuthority> _parkingAuthorities;
 
     public TowDeterminerService(
         ILogger logger,
-        IStateParkingAuthority MY,
-        IStateParkingAuthority IL,
-        IStateParkingAuthority IN,
-        IStateParkingAuthority PA,
+        IEnumerable<IStateParkingAuthority> parkingAuthorities,
         ITowRuleEnforcements rules)
     {
         _logger = logger;
-        _MY = MY;
-        _IL = IL;
-        _IN = IN;
-        _PA = PA;
+        _parkingAuthorities = parkingAuthorities;
         _EnforcementRules = rules;
     }
 
@@ -54,19 +32,13 @@ public class TowDeterminerService : ITowDeterminerService
     {
         var ParkingTickets = new List<ParkingTicketDto>();
 
-        //Gather Tickets from all states
-        var parkingAuthorities = new List<IStateParkingAuthority>
-        {
-            _MY, _IL, _IN, _PA
-        };
-
         //Note: Imagine if we did all 50 states, and each called a web service.
         //Todo: We can eventually move this to async calls
         //Todo: Let's see if we can reduce the number of calls
         //      by changing how we add to the parking tickets object.
         //      Once we hit one state that trips flags for being towed,
         //      no need to keep calling.
-        foreach (var parkingAuthority in parkingAuthorities)
+        foreach (var parkingAuthority in _parkingAuthorities)
             try
             {
                 ParkingTickets.AddRange(parkingAuthority.GetTicketsFromTag(tag));

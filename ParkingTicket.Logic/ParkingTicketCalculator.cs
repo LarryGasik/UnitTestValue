@@ -11,10 +11,6 @@ public class ParkingTicketCalculator
     private readonly ITicketIssuer _ticketIssuer;
     private readonly ITowDeterminerService _towDeterminerService;
 
-    public ParkingTicketCalculator() : this(new TicketIssuer(), new TicketGenerator(), new TowDeterminerService())
-    {
-    }
-
     public ParkingTicketCalculator(ITicketIssuer ticketIssuer, ITicketGenerator ticketGenerator,
         ITowDeterminerService towDeterminerService)
     {

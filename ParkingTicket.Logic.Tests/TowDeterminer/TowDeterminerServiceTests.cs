@@ -47,7 +47,9 @@ public class TowDeterminerServiceTests
         _EnforcementRules
             .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
             .Returns(true);
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
@@ -61,7 +63,9 @@ public class TowDeterminerServiceTests
     public void ShouldCallAllParkingAuthorities()
     {
         //Arrange
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
@@ -90,7 +94,9 @@ public class TowDeterminerServiceTests
         _EnforcementRules
             .Setup(x => x.ShouldTowCar(new List<ParkingTicketDto>(), ParkingOffense.BlockingSidewalk, It.IsAny<int>()))
             .Returns(true);
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
@@ -107,7 +113,9 @@ public class TowDeterminerServiceTests
     {
         //Arrange
         _MY.Setup(x => x.GetTicketsFromTag(It.IsAny<string>())).Throws(new Exception("SomeExceptionThrown"));
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
@@ -125,7 +133,9 @@ public class TowDeterminerServiceTests
     {
         //Arrange
         _PA.Setup(x => x.GetTicketsFromTag(It.IsAny<string>())).Throws(new Exception("SomeExceptionThrown"));
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
@@ -144,7 +154,9 @@ public class TowDeterminerServiceTests
         //Arrange
         var someException = new SystemException("some Exception");
         _PA.Setup(x => x.GetTicketsFromTag(It.IsAny<string>())).Throws(someException);
-        _sut = new TowDeterminerService(_logger.Object, _MY.Object, _IL.Object, _IN.Object, _PA.Object,
+        _sut = new TowDeterminerService(
+            _logger.Object,
+            new List<IStateParkingAuthority> { _MY.Object, _IL.Object, _IN.Object, _PA.Object },
             _EnforcementRules.Object);
 
         //Act
